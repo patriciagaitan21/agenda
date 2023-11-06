@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.rtl.min.css">
+    <title>menu responsive</title>
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+          <i class="fas fa-bars"></i>
+        </label>
+        <a href="#" class="enlace">
+            <img src="imagen/logo.png" alt="" class="logo">
+        </a>
+        <ul>
+            <li><a class="active" href="index.html">𝐼𝓃𝒾𝒸𝒾𝑜</a></li>
+            <li><a href="reservaciones.html">𝑅𝑒𝓈𝑒𝓇𝓋𝒶𝒸𝒾𝑜𝓃𝑒𝓈</a></li>
+            <li><a href="agendaC.html">𝒜𝑔𝑒𝓃𝒹𝒶 𝒹𝑒 𝒸𝒾𝓉𝒶𝓈</a></li>
+            <li><a href="modificarH.html">𝑀𝑜𝒹𝒾𝒻𝒾𝒸𝒶𝓇 𝐻𝑜𝓇𝒶𝓇𝒾𝑜</a></li>
+            <li><a href="modificarS.html">𝑀𝑜𝒹𝒾𝒻𝒾𝒸𝒶𝓇 𝒮𝑒𝓇𝓋𝒾𝒸𝒾𝑜𝓈</a></li>
+        </ul>
+               
+     </nav>
+
+   <h1></h1>
+     <!DOCTYPE html>
+     <chtml lang="en">
+     <head>
+      <meta charset="UTF-8">
+      <cmeta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width,initial-scale-1.0">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="styles.css">
+      <title>Reservaciones responsive</title>
+     </head>
+     
+     <body style="display: grid; background: url(imagen/imagen-reserva.png) no-repeat; background-size: cover; background-position: center center; height: calc(100vh - 80px);">
+        <div class="container" >
+            <div class="card shadow" style="background-color: #e5afd3;">
+                <div class="card-body">
+                    <form class="form-control" action="/user" method="post" >
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label>Nombre</label>
+                                <input type="text" class="form-control mb-3" name="Nombre">
+     
+                            </div>
+                            <div class="col">
+                                <label>Dia</label>
+                                <input type="text" class="form-control mb-3" name="Dia y Fecha">
+     
+                            </div>
+                            <div class="col">
+                                <label>Fecha</label>
+                                <input type="date" class="form-control mb-3" name="Fecha">
+     
+                            </div>
+                            <div class="col">
+                              <label>Hora</label>
+                              <input type="time" class="form-control mb-3" name="Hora">
+   
+                          </div>
+                          <div class="col">
+                            <label>Servicio</label>
+                            <input type="text" class="form-control mb-3" name="Servicio">
+ 
+                        </div>
+                            <div class="col">
+                                <button style="background-color: #943573;" class="btn btn-primary mb-3 mt-4" type="submit" >Guardar</button>
+                            </div>
+     
+                        </div>
+     
+                    </form>
+     
+                    <!--Tabla-->
+           <div class="table-responsive">
+             <table class="table table-bordered">
+             
+                        <thead>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Dia</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Servicio</th>
+                            <th scope="col">Editar</th>
+                            <th scope="col">Eliminar</th>
+                        </thead>
+                         
+                   
+                    <tbody>
+                {% for d in data %}
+                    <tr>
+                        <td>{{d.id}}</td>
+                        <td>{{d.Nombre}}</td>
+                        <td>{{d.Dia}}</td>
+                        <td>{{d.Fecha}}</td>
+                        <td>{{d.Hora}}</td>
+                        <td>{{d.Servicio}}</td>
+                        <td><button class="btn btn-sm" style="background-color: #943573; color: #fff;"  id="btn-edit{{d.id}}" data-bs-toggle="modal" data-bs-target="#modal{{d.id}}">Editar</button></td>
+                        <td><a href="{{url_for('delete', id=d.id)}}" class="btn btn-danger btn-sm">Eliminar</a></td>
+                    </tr>
+               
+                    <div class="modal fade" id="modal{{d.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">{{d.Nombre}}</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/edit/{{d.id}}" method="post">
+                                    <label>Nombre</label>
+                                    <input type="text" class="form-control mb-3" name="Nombre" value="{{d.Nombre}}">
+                                    <label>Dia</label>
+                                    <input type="text" class="form-control mb-3" name="Dia" value="{{d.Dia}}">
+                                    <label>Fecha</label>
+                                    <input type="date" class="form-control mb-3" name="Fecha" value="{{d.Fecha}}">
+                                    <label>Hora</label>
+                                    <input type="time" class="form-control mb-3" name="Hora" value="{{d.Hora}}">
+                                    <label>Servicio</label>
+                                    <input type="text" class="form-control mb-3" name="Servicio" value="{{d.Servicio}}">
+                             
+                              
+                             
+                            </div>
+                            <div class="modal-footer">
+                              <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                {% endfor %}      
+     
+            </tbody>
+            </table>
+            </div>  
+        
+        </div>
+     
+    </div>
+     
+</div>
+   
+
+
+    
+</body>
+</html>
